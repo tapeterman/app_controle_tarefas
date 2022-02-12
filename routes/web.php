@@ -17,9 +17,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes(['veriffy'  =>true]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])
+    ->name('home')
+    ->middleware('verified');
 Route::resource('tarefa',TarefaController::class);
 Route::get('/mensagem',function(){  Mail::to('xxx@xxx.xxx')->send(new MensagemMail());
                                     return 'email enviado';

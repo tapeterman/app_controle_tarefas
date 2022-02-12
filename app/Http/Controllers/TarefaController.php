@@ -11,7 +11,26 @@ class TarefaController extends Controller
     {
         $this->middleware('auth');
     }
-   
+    
+    protected function rules(){
+
+        return [
+                    'tarefa' => 'min:3|max:200',
+                    'data_limite_conclusao' => 'required|date',
+
+        ];
+    }
+
+    protected function message(){
+
+        return [
+                    'max'       => 'O máximo de caracteres é 200',
+                    'min'       => 'O mínimo de caracteres é 3',
+                    'date'      => 'O campo :attribute deve ser um data valida!'
+        ];
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -19,7 +38,7 @@ class TarefaController extends Controller
      */
     public function index()
     {
-        //
+        return 'estou aqui deu tudo certo!';
     }
 
     /**
@@ -29,7 +48,7 @@ class TarefaController extends Controller
      */
     public function create()
     {
-        //
+        return view('tarefa.create');
     }
 
     /**
@@ -40,7 +59,11 @@ class TarefaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        $request->validate($this->rules(),$this->message());
+        $tarefa = Tarefa::create($request->all());
+        return redirect()->route('tarefa.show',['tarefa' =>$tarefa]);
+
     }
 
     /**
@@ -51,7 +74,7 @@ class TarefaController extends Controller
      */
     public function show(Tarefa $tarefa)
     {
-        //
+        dd($tarefa);
     }
 
     /**
