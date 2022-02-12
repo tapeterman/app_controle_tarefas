@@ -11,7 +11,7 @@ class TarefaController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     protected function rules(){
 
         return [
