@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 class TarefaController extends Controller
 {
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -40,7 +41,10 @@ class TarefaController extends Controller
      */
     public function index()
     {
-        return 'estou aqui deu tudo certo!';
+
+        $user_id = auth()->user()->id;
+        $tarefas = Tarefa::where('user_id',$user_id)->get();
+        return view('tarefa.index',['tarefas' => $tarefas]);
     }
 
     /**
@@ -65,7 +69,7 @@ class TarefaController extends Controller
         $request->validate($this->rules(),$this->message());
         
         $dados = $request->all();
-        $dados['user_id'] = auth()->user()->id;
+        $dados['user_id'] = $this->user_id;
 
         $tarefa = Tarefa::create($dados);
         $destinatario = auth()->user()->email;
