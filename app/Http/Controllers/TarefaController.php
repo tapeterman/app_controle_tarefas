@@ -33,6 +33,17 @@ class TarefaController extends Controller
         ];
     }
 
+    protected function security(Tarefa $tarefa){
+
+        
+        if(auth()->user()->id != $tarefa->user_id){
+            return false;
+        }
+        return true;
+    }
+
+
+
 
     /**
      * Display a listing of the resource.
@@ -86,6 +97,7 @@ class TarefaController extends Controller
      */
     public function show(Tarefa $tarefa)
     {
+        
         return view('tarefa.show',['tarefa' => $tarefa]);
     }
 
@@ -97,7 +109,10 @@ class TarefaController extends Controller
      */
     public function edit(Tarefa $tarefa)
     {
-        //
+        if($this->security($tarefa)){
+            return view('tarefa.edit',['tarefa'=>$tarefa]);
+        }
+        return view('acesso-negado');
     }
 
     /**
@@ -109,7 +124,15 @@ class TarefaController extends Controller
      */
     public function update(Request $request, Tarefa $tarefa)
     {
-        //
+
+        if($this->security($tarefa)){
+            $request->validate($this->rules(),$this->message());
+            $tarefa->update($request->all());
+            return redirect()->route('tarefa.show',['tarefa' =>$tarefa]);
+        };
+        return view('acesso-negado');
+       
+
     }
 
     /**

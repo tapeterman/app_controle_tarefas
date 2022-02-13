@@ -12,7 +12,8 @@
                             <tr>
                                 <th scope="col">ID</th>
                                 <th scope="col">Tarefa</th>
-                                <th scope="col">data Limite Conclusão</th>
+                                <th scope="col">Data para Conclusão</th>
+                                <th scope="col">Ações</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -21,6 +22,13 @@
                                     <th scope="row">{{ $tarefa->id }}</th>
                                     <td>{{ $tarefa->tarefa }}</td>
                                     <td>{{ date('d/m/Y',strtotime($tarefa->data_limite_conclusao)) }}</td>
+                                    <td>
+                                        <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                                            <a type="button" class="btn btn-danger" href="{{ route('tarefa.show',$tarefa) }}">Excluir</a>
+                                            <a type="button" class="btn btn-warning" href="{{ route('tarefa.edit',$tarefa) }}">Editar</a>
+                                            <a type="button" class="btn btn-success" href="{{ route('tarefa.show',$tarefa) }}">Concluir</a>
+                                        </div>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
