@@ -24,7 +24,13 @@
                                     <td>{{ date('d/m/Y',strtotime($tarefa->data_limite_conclusao)) }}</td>
                                     <td>
                                         <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                                            <a type="button" class="btn btn-danger" href="{{ route('tarefa.show',$tarefa) }}">Excluir</a>
+                                            <form id="form_{{ $tarefa->id }}" method="post" action="{{ route('tarefa.destroy',$tarefa) }}">
+                                                @method('DELETE')
+                                                @csrf
+                                            </form>
+                                            <a type="button" href="#" class="btn btn-danger" onclick="document.getElementById('form_{{ $tarefa->id }}').submit()">
+                                                    Excluir
+                                                </a>
                                             <a type="button" class="btn btn-warning" href="{{ route('tarefa.edit',$tarefa) }}">Editar</a>
                                             <a type="button" class="btn btn-success" href="{{ route('tarefa.show',$tarefa) }}">Concluir</a>
                                         </div>

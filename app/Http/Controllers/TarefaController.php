@@ -143,6 +143,10 @@ class TarefaController extends Controller
      */
     public function destroy(Tarefa $tarefa)
     {
-        //a
+        if($this->security($tarefa)){
+            $tarefa->delete();            
+            return redirect()->route('tarefa.index');
+        };
+        return view('acesso-negado');
     }
 }
