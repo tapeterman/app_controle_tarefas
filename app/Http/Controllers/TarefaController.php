@@ -42,9 +42,6 @@ class TarefaController extends Controller
         return true;
     }
 
-
-
-
     /**
      * Display a listing of the resource.
      *
