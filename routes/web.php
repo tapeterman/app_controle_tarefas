@@ -17,7 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/tarefa/export', [App\Http\Controllers\TarefaController::class,'export'])->name('tarefa.export');
+Route::get('/tarefa/export/{extensao}', [App\Http\Controllers\TarefaController::class,'export'])->name('tarefa.export');
 
 Auth::routes(['verify'  =>true]);
 

@@ -150,8 +150,11 @@ class TarefaController extends Controller
         return view('acesso-negado');
     }
 
-    public function export()
+    public function export($extensao)
     {
-        return Excel::download(new TarefasExport, 'Tarefas.xlsx');
+        if($extensao == 'xslx' || $extensao == 'csv') {
+            return Excel::download(new TarefasExport, 'Lista_de_Tarefas.'.$extensao);
+        }
+        return redirect()->route('tarefa.index');
     }
 }
