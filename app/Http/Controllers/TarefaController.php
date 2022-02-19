@@ -7,6 +7,7 @@ use App\Mail\NovaTarefaMail;
 use App\Exports\TarefasExport;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
+use PDF;
 
 Use App\Models\Tarefa;
 
@@ -156,5 +157,14 @@ class TarefaController extends Controller
             return Excel::download(new TarefasExport, 'Lista_de_Tarefas.'.$extensao);
         }
         return redirect()->route('tarefa.index');
+    }
+    public function export2()
+    {
+        $user_id = auth()->user()->id;
+        $tarefas = Tarefa::where('user_id',$user_id)->get();
+        $pdf = PDF::loadView('tarefa.pdf', ['tarefas' => $tarefas]);
+        $pdf->setPaper('a4','portrait');
+        return $pdf->stream('lista_de_tarefas.pdf');
+
     }
 }
