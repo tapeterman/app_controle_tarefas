@@ -13,7 +13,7 @@
                                 <a href="{{ route('tarefa.create') }}" class="mr-3">Nova</a>
                                 <a href="{{ route('tarefa.export',['extensao' => 'xlsx']) }}">XLSX</a>
                                 <a href="{{ route('tarefa.export',['extensao' => 'csv']) }}">CSV</a>
-                                <a href="{{ route('tarefa.export',['extensao' => 'pdf']) }}">PSF</a>
+                                <a href="{{ route('tarefa.export',['extensao' => 'pdf']) }}">PDF</a>
                             </div>
                         </div>
                     </div>
@@ -39,10 +39,11 @@
                                             <form id="form_{{ $tarefa->id }}" method="post" action="{{ route('tarefa.destroy',$tarefa) }}">
                                                 @method('DELETE')
                                                 @csrf
-                                            </form>
-                                            <a type="button" href="#" class="btn btn-danger" onclick="document.getElementById('form_{{ $tarefa->id }}').submit()">
-                                                    Excluir
+                                                <a type="button" href="#" class="btn btn-danger" onclick="document.getElementById('form_{{ $tarefa->id }}').submit()">
+                                                Excluir
                                                 </a>
+                                            </form>
+                                            
                                             <a type="button" class="btn btn-warning" href="{{ route('tarefa.edit',$tarefa) }}">Editar</a>
                                             <a type="button" class="btn btn-success" href="{{ route('tarefa.show',$tarefa) }}">Concluir</a>
                                         </div>
